@@ -106,7 +106,7 @@ var competitor  = document.querySelector('.competitor');
 var country     = document.querySelector('.country');
 var event       = document.querySelector('.event');
 var medal       = document.querySelector('.medal');
-var worldRecord = document.querySelector('.world-record');
+var worldRecord = document.querySelector('.worldRecord');
 var addBtn      = document.querySelector('.button__add');
 
 // Disable Add button
@@ -230,14 +230,14 @@ function renderSubmitBtn() {
     'id':            index,
     'year':          document.forms[0].elements[0].value,
     'city':          document.forms[0].elements[1].value,
-    'commence-date': document.forms[0].elements[2].value,
-    'end-date':      document.forms[0].elements[3].value,
+    'commenceDate': document.forms[0].elements[2].value,
+    'endDate':      document.forms[0].elements[3].value,
 
     'name':         document.forms[0].elements[4].value,
     'country':      document.forms[0].elements[5].value,
     'event':        document.forms[0].elements[6].value,
     'medal':        document.forms[0].elements[7].value,
-    'world-record': document.forms[0].elements[8].value
+    'worldRecord':  document.forms[0].elements[8].value
   });
 
   // Check if incoming data already exists in preview table
@@ -297,14 +297,14 @@ function renderSubmitBtn() {
 
       'year':          document.forms[0].elements[0].value,
       'city':          document.forms[0].elements[1].value,
-      'commence-date': document.forms[0].elements[2].value,
-      'end-date':      document.forms[0].elements[3].value,
+      'commenceDate': document.forms[0].elements[2].value,
+      'endDate':      document.forms[0].elements[3].value,
 
       'name':         document.forms[0].elements[4].value,
       'country':      document.forms[0].elements[5].value,
       'event':        document.forms[0].elements[6].value,
       'medal':        document.forms[0].elements[7].value,
-      'world-record': document.forms[0].elements[8].value
+      'worldRecord':  document.forms[0].elements[8].value
     });
 
     /**

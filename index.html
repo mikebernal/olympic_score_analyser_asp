@@ -41,9 +41,6 @@
             <main>
                 <!-- Olympic analyzer form -->
                 <form name="olympic" method="POST" action="result.aspx">
-                    <!-- <form name="olympic" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>"> -->
-                    <!-- <form name="olympic" method="post" action="views/result.php"> -->
-
                     <div style="background: none; display: flex;">
                         <div style="flex: 1; background: none">
                             <!-- Year -->
@@ -114,7 +111,7 @@
                             <!-- World record -->
                             <div style="flex: 2; background: none">
                                 <label class="label" for="medal">World Record?</label>
-                                <select class="input world-record form-control col-md-10" name="world-record">
+                                <select class="input worldRecord form-control col-md-10" name="worldRecord">
                                     <option value="" selected disabled hidden>select</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
