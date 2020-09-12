@@ -7,16 +7,16 @@
 <script runat="server">
     public class Country
     {
-        public int id { get; set; }
-        public int year { get; set; }
-        public string city { get; set; }
-        public string commenceDate {get; set;}
-        public string endDate { get; set; }
-        public string name { get; set; }
-        public string country { get; set; }
-        public string @event { get; set; }
-        public string medal { get; set; }
-        public string worldRecord { get; set; }
+        public int id;
+        public int year;
+        public string city;
+        public string commenceDate;
+        public string endDate;
+        public string name;
+        public string country;
+        public string @event;
+        public string medal;
+        public string worldRecord;
     }
 
     public class SortedCountry
@@ -116,20 +116,6 @@
         return count;
     }
 
-    /** For Printing each sorted countries
-    for (var i =0; i < sortedCountries.Count; i += 1)
-    { 
-        Response.Write(sortedCountries[i]);
-    }
-
-    sortedCountries.Add
-    ((
-        country: competitor.Value<string>("country"),
-        name: competitor.Value<string>("name")
-    ));
-
-    /*/
-
     // Initialize sortedCountries
     foreach(var competitor in competitors)
     {
@@ -137,7 +123,7 @@
         if (sortedCountries.Count == 0)
         {
             // 1. Add country if array is empty
-            sortedCountries.Add(new  SortedCountry {
+            sortedCountries.Add(new SortedCountry {
                 country     = competitor["country"],
                 gold        = checkGold(competitor["medal"]),
                 silver      = checkSilver(competitor["medal"]),
@@ -151,26 +137,14 @@
             var countryExists = sortedCountries.Find(x => x.country == competitor.country.ToString());
             var countryIndex  = sortedCountries.FindIndex(x => x.country == competitor.country.ToString());
 
+            // Returns the zero-based index of a country if found; else -1
             if (countryIndex != -1)
             {
-                // Existing country medal count output: "Gold"
-                //Response.Write(competitors[countryIndex].medal);
-
-                // Updated country medal count output "Bronze"
-                //Response.Write(competitor.medal);
-
                 // 2. Override existing country values
-                sortedCountries[countryIndex].gold        = checkGold(competitors[countryIndex].medal) + checkGold(competitor.medal);
+                sortedCountries[countryIndex].gold        = checkGold(competitors[countryIndex].medal)   + checkGold(competitor.medal);
                 sortedCountries[countryIndex].silver      = checkSilver(competitors[countryIndex].medal) + checkSilver(competitor.medal);
                 sortedCountries[countryIndex].bronze      = checkBronze(competitors[countryIndex].medal) + checkBronze(competitor.medal);
                 sortedCountries[countryIndex].totalMedals = countMedals(sortedCountries[countryIndex].gold, sortedCountries[countryIndex].silver, sortedCountries[countryIndex].bronze);
-
-                // Debugging purposes only
-                Response.Write("Country to be updated is: " + sortedCountries[countryIndex].country + "<br>");
-                Response.Write(sortedCountries[countryIndex].country + " gold count is: " + sortedCountries[countryIndex].gold + "<br>");
-                Response.Write(sortedCountries[countryIndex].country + " silver count is: " + sortedCountries[countryIndex].silver + "<br>");
-                Response.Write(sortedCountries[countryIndex].country + " bronze count is: " + sortedCountries[countryIndex].bronze + "<br>");
-                Response.Write(sortedCountries[countryIndex].country + " total medals is: " + sortedCountries[countryIndex].totalMedals + "<br>");
             }
             else
             {
@@ -225,20 +199,24 @@
 						<table>
 							<tbody>
 							 <%
-                                    foreach (var country in sortedCountries)
-                                    {
-                                    %>
-                                        <tr>
-                                            <td class='column1'><% Response.Write(country.country); %></td>
-                                            <td class='column2'><% Response.Write(country.gold); %></td>
-                                            <td class='column3'><% Response.Write(country.silver); %></td>
-                                            <td class='column4'><% Response.Write(country.bronze); %></td>
-                                            <td class='column5'><% Response.Write(country.totalMedals); %></td>
-                                            <td class='column6'>X</td>
-                                        </tr>
-                                    <%
-                                    }
-                                    %>
+                                var i = 1;
+                                foreach (var country in sortedCountries.OrderByDescending(x => x.totalMedals))
+                                {
+                                     
+                                %>
+                                    <tr>
+                                        <td class='column1'><% Response.Write(country.country); %></td>
+                                        <td class='column2'><% Response.Write(country.gold); %></td>
+                                        <td class='column3'><% Response.Write(country.silver); %></td>
+                                        <td class='column4'><% Response.Write(country.bronze); %></td>
+                                        <td class='column5'><% Response.Write(country.totalMedals); %></td>
+                                        <td class='column6'><% Response.Write(i); %></td>
+                                    </tr>
+                                     
+                                <%
+                                i += 1;
+                                }
+                                %>
 							</tbody>
 						</table>
 					</div>
