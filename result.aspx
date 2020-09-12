@@ -162,15 +162,6 @@
         }
 
     }
-    // To do
-    //int getRank(string country)
-    //{
-    //    if (sortedCountries.Find(x => x.country == country))
-    //    { 
-
-    //    }
-    //}
-
 
     %>
     <!-- Competitors -->
@@ -200,7 +191,7 @@
 							<tbody>
 							 <%
                                 var i = 1;
-                                foreach (var country in sortedCountries.OrderByDescending(x => x.totalMedals))
+                                foreach (var country in sortedCountries.OrderByDescending(x => x.totalMedals).ThenBy(x => x.country))
                                 {
                                      
                                 %>
