@@ -80,4 +80,3 @@ C:\Users\mike\source\repos\olympic_score_analyser_asp\bin\System.Threading.Tasks
 C:\Users\mike\source\repos\olympic_score_analyser_asp\bin\System.ValueTuple.xml
 C:\Users\mike\source\repos\olympic_score_analyser_asp\bin\Newtonsoft.Json.dll
 C:\Users\mike\source\repos\olympic_score_analyser_asp\bin\Newtonsoft.Json.xml
-C:\Users\mike\source\repos\olympic_score_analyser_asp\obj\Debug\olympic_score_analyser_asp.vbprojAssemblyReference.cache

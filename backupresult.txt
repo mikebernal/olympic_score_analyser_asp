@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#"%>
+<%@ Page Language="C#"%>
 <%@ Import Namespace="System" %>
 <%@ Import Namespace="System.Collections" %>
 <%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="Newtonsoft.Json" %>
 
 <script runat="server">
-    public class Country
+    public class sortedCountry
     {
         public int id { get; set; }
         public int year { get; set; }
@@ -17,15 +17,6 @@
         public string @event { get; set; }
         public string medal { get; set; }
         public string worldRecord { get; set; }
-    }
-
-    public class SortedCountry
-    {
-        public string country { get; set; }
-        public int gold { get; set; }
-        public int silver { get; set; }
-        public int bronze { get; set; }
-        public int totalMedals { get; set; }
     }
 </script>
 
@@ -55,8 +46,8 @@
     // Initialize arrays
     dynamic competitors = JsonConvert.DeserializeObject(Request.Form["competitorList"]);
 
-    List<SortedCountry> sortedCountries = new List<SortedCountry>();
-    List<dynamic> worldRecordList       = new List<object>();
+    List<sortedCountry> sortedCountries = new List<sortedCountry>();
+    List<dynamic> worldRecordList = new List<object>();
 
     // World Record Array
     foreach (var competitor in competitors)
@@ -137,51 +128,49 @@
         if (sortedCountries.Count == 0)
         {
             // 1. Add country if array is empty
-            sortedCountries.Add(new  SortedCountry {
-                country     = competitor["country"],
-                gold        = checkGold(competitor["medal"]),
-                silver      = checkSilver(competitor["medal"]),
-                bronze      = checkBronze(competitor["medal"]),
-                totalMedals = countMedals(checkGold(competitor["medal"]), checkSilver(competitor["medal"]), checkBronze(competitor["medal"]))
+            sortedCountries.Add(new  sortedCountry {
+                country     = competitor["country"]
+                //gold        = checkGold(competitor["medal"]),
+                //silver      = checkSilver(competitor["medal"]),
+                //bronze      = checkBronze(competitor["medal"]),
+                //totalMedals = countMedals(checkGold(competitor["medal"]), checkSilver(competitor["medal"]), checkBronze(competitor["medal"]))
             });
         }
         else
         {
             // Update existing country details
-            var countryExists = sortedCountries.Find(x => x.country == competitor.country.ToString());
-            var countryIndex  = sortedCountries.FindIndex(x => x.country == competitor.country.ToString());
+            var countryExists = sortedCountries.Find(x => x.country == competitor.country);
+            var countryIndex  = sortedCountries.FindIndex(x => x.country == competitor.country);
+            //Response.Write("Existing country index: " + countryExists);
+            // sortedCountries.Contains(competitor.country)
+            // countryIndex != -1
+            //Response.Write(sortedCountries[i].Contains(competitor.country) + "it works");
+            //Response.Write(countryIndex);
 
             if (countryIndex != -1)
             {
-                // Existing country medal count output: "Gold"
-                //Response.Write(competitors[countryIndex].medal);
-
-                // Updated country medal count output "Bronze"
-                //Response.Write(competitor.medal);
-
                 // 2. Override existing country values
-                sortedCountries[countryIndex].gold        = checkGold(competitors[countryIndex].medal) + checkGold(competitor.medal);
-                sortedCountries[countryIndex].silver      = checkSilver(competitors[countryIndex].medal) + checkSilver(competitor.medal);
-                sortedCountries[countryIndex].bronze      = checkBronze(competitors[countryIndex].medal) + checkBronze(competitor.medal);
-                sortedCountries[countryIndex].totalMedals = countMedals(sortedCountries[countryIndex].gold, sortedCountries[countryIndex].silver, sortedCountries[countryIndex].bronze);
-
-                // Debugging purposes only
-                Response.Write("Country to be updated is: " + sortedCountries[countryIndex].country + "<br>");
-                Response.Write(sortedCountries[countryIndex].country + " gold count is: " + sortedCountries[countryIndex].gold + "<br>");
-                Response.Write(sortedCountries[countryIndex].country + " silver count is: " + sortedCountries[countryIndex].silver + "<br>");
-                Response.Write(sortedCountries[countryIndex].country + " bronze count is: " + sortedCountries[countryIndex].bronze + "<br>");
-                Response.Write(sortedCountries[countryIndex].country + " total medals is: " + sortedCountries[countryIndex].totalMedals + "<br>");
+                sortedCountries[countryIndex].country = "IT WORKS";
+                Response.Write(sortedCountries[countryIndex]);
+                //sortedCountries (countryIndex, new
+                //{
+                //    country     = competitor["country"],
+                //    gold        = (checkGold(competitor["medal"])   + Int32.Parse(sortedCountries[countryIndex]["gold"])),
+                //    silver      = (checkSilver(competitor["medal"]) + Int32.Parse(sortedCountries[countryIndex]["silver"])),
+                //    bronze      = (checkBronze(competitor["medal"]) + Int32.Parse(sortedCountries[countryIndex]["bronze"])),
+                //    totalMedals = sortedCountries[countryIndex]["total-medals"] += countMedals(checkGold(competitor["medal"]), checkSilver(competitor["medal"]), checkBronze(competitor["medal"]))
+                //});
             }
             else
             {
                 // 3. Add country if it does not exists yet
-                sortedCountries.Add(new SortedCountry
+                sortedCountries.Add(new sortedCountry
                 {
-                    country     = competitor["country"],
-                    gold        = checkGold(competitor["medal"]),
-                    silver      = checkSilver(competitor["medal"]),
-                    bronze      = checkBronze(competitor["medal"]),
-                    totalMedals = countMedals(checkGold(competitor["medal"]), checkSilver(competitor["medal"]), checkBronze(competitor["medal"]))
+                    country = competitor["country"]
+                    //gold = checkGold(competitor["medal"]),
+                    //silver = checkSilver(competitor["medal"]),
+                    //bronze = checkBronze(competitor["medal"]),
+                    //totalMedals = countMedals(checkGold(competitor["medal"]), checkSilver(competitor["medal"]), checkBronze(competitor["medal"]))
                 });
             }
 
@@ -234,7 +223,7 @@
                                             <td class='column3'><% Response.Write(country.silver); %></td>
                                             <td class='column4'><% Response.Write(country.bronze); %></td>
                                             <td class='column5'><% Response.Write(country.totalMedals); %></td>
-                                            <td class='column6'>X</td>
+                                            <td class='column6'><% Response.Write(country.totalMedals); %>X</td>
                                         </tr>
                                     <%
                                     }
