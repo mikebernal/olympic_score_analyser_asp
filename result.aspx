@@ -191,7 +191,7 @@
 							<tbody>
 							 <%
                                 var i = 1;
-                                foreach (var country in sortedCountries.OrderByDescending(x => x.totalMedals).ThenBy(x => x.country))
+                                foreach (var country in sortedCountries.OrderByDescending(x => x.totalMedals).ThenByDescending(x => x.gold).ThenByDescending(x => x.silver).ThenByDescending(x => x.gold).ThenBy(x => x.country))
                                 {
                                      
                                 %>
@@ -236,7 +236,7 @@
 						<table>
 							<tbody>
 							 <%
-            foreach (var worldRecord in worldRecordList) 
+            foreach (var worldRecord in worldRecordList.OrderBy(x => x.name)) 
             {
         %>
                 <tr>
